@@ -7,13 +7,18 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import app.cash.sqldelight.db.SqlDriver
 import com.mantum.database.Database
 import com.mantum.multiapp.Greeting
+import commantumdatabase.User
 import commantumdatabase.UserQueries
 import database.DriverFactory
+import java.lang.Exception
+import androidx.compose.runtime.*
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +29,18 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    val scope = rememberCoroutineScope()
+                    var text by remember {mutableStateOf("Loading")}
+                    LaunchedEffect(true){
+                        scope.launch {
+                            text = try {
+                                Greeting().greeting()
+                            } catch (e: Exception) {
+                                e.localizedMessage ?: "error"
+                            }
+                        }
+                    }
+                    GreetingView(text)
                 }
             }
         }
@@ -59,6 +75,10 @@ fun leerDatos(driver: SqlDriver){
     /*userQueries.setUsuarios(1,"Luis","perez")
     userQueries.setUsuarios(2,"Sofia","Reyes")
     userQueries.setUsuarios(3,"Arnold","Diaz")*/
-    Log.i("dato", userQueries.getAllUsers().executeAsList().toString() )
+//    val user = User(1,"Paola","Sanchez")
 
+
+//    userQueries.InsertUser(user)
+
+    Log.i("dato", userQueries.getAllUsers().executeAsList().toString() )
 }
