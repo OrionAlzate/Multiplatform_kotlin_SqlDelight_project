@@ -71,14 +71,13 @@ fun leerDatos(driver: SqlDriver){
     val database = Database(driver)
     val userQueries :UserQueries = database.userQueries
 
-
     /*userQueries.setUsuarios(1,"Luis","perez")
     userQueries.setUsuarios(2,"Sofia","Reyes")
-    userQueries.setUsuarios(3,"Arnold","Diaz")*/
-//    val user = User(1,"Paola","Sanchez")
+    userQueries.setUsuarios(3,"Arnold","Diaz")
 
-
-//    userQueries.InsertUser(user)
+    val user = User(1,"Paola","Sanchez")
+    userQueries.InsertUser(user)*/
 
     Log.i("dato", userQueries.getAllUsers().executeAsList().toString() )
+
 }

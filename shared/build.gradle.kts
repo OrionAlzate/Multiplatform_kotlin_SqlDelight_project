@@ -26,6 +26,10 @@ kotlin {
         }
     }
 
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+    }
+
     sourceSets {
         val ktorVersion = "2.3.4"
         val commonMain by getting {
